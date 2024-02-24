@@ -111,17 +111,19 @@ class Board
     }
 
     public void Display()
-    {
-        for (int y = 0; y < 6; y++)
-        {
-            for (int x = 0; x < 6; x++)
-            {
-                Console.Write("  |  " + Grid[x, y].Occupant + "  |  ");
-            }
-            Console.WriteLine();
-            Console.Write("________________________________________________________________\n\n");
-        }
-    }
+ {
+     Console.WriteLine("******************************************");
+
+     for (int y = 0; y < 6; y++)
+     {
+         for (int x = 0; x < 6; x++)
+         {
+             Console.Write($" | {Grid[x, y].Occupant} | ");
+         }
+         Console.WriteLine("\n******************************************");
+     }
+ }
+
 
     public void UpdateBoardWithPlayers(Player player1, Player player2)
     {
