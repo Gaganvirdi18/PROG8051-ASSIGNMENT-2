@@ -20,16 +20,16 @@ class Player
     public string Name { get; }
     public Position Position { get; set; }
     public int GemCount { get; set; }
-    public Position[] PositionHistory { get; } = new Position[30]; // Assuming a maximum of 30 positions as board is 6X6.
+    public Position[] LocationHistory { get; } = new Position[30]; // Assuming a maximum of 30 positions as board is 6X6.
 
-    public int currentPositionIndex = 0; // To check the Index of the array of the board
+    public int current_Position_Index = 0; // To check the Index of the array of the board
 
     public Player(string name, Position position)
     {
         Name = name;
         Position = position;
         GemCount = 0;
-        PositionHistory[currentPositionIndex] = position;
+        LocationHistory[current_Position_Index] = position;
     }
 
     public void Move(char direction)
@@ -56,18 +56,18 @@ class Player
                 return;
         }
 
-        if (currentPositionIndex + 1 < PositionHistory.Length)
+        if (current_Position_Index + 1 < LocationHistory.Length)
         {
-            currentPositionIndex++;
-            PositionHistory[currentPositionIndex] = new Position(newX, newY);
-            Position = PositionHistory[currentPositionIndex];
+            current_Position_Index++;
+            LocationHistory[current_Position_Index] = new Position(newX, newY);
+            Position = LocationHistory[current_Position_Index];
         }
     }
 }
 
 class Cell
 {
-    public string Occupant { get; set; }
+    public string Holder { get; set; }
 }
 
 class Board
@@ -87,68 +87,83 @@ class Board
         {
             for (int y = 0; y < 6; y++)
             {
-                Grid[x, y] = new Cell { Occupant = "-" };
+                Grid[x, y] = new Cell { Holder = "-" };
             }
         }
 
-        Grid[0, 0].Occupant = "P1";
-        Grid[5, 5].Occupant = "P2";
+        Grid[0, 0].Holder = "P1";
+        Grid[5, 5].Holder = "P2";
+
         //Initialise the gem values 
-        Grid[4, 3].Occupant = "G";
-        Grid[4, 1].Occupant = "G";
-        Grid[3, 3].Occupant = "G";
-        Grid[1, 5].Occupant = "G";
-        Grid[5, 3].Occupant = "G";
-        Grid[2, 1].Occupant = "G";
-        Grid[3, 3].Occupant = "G";
-        Grid[3, 1].Occupant = "G";
+        Grid[4, 3].Holder = "G";
+        Grid[1, 1].Holder = "G";
+        Grid[3, 3].Holder = "G";
+        Grid[2, 5].Holder = "G";
+        Grid[5, 3].Holder = "G";
+        Grid[2, 2].Holder = "G";
+        Grid[3, 3].Holder = "G";
+        Grid[5, 4].Holder = "G";
 
         // intialise the obstackles
-        Grid[1, 2].Occupant = "O";
-        Grid[3, 4].Occupant = "O";
-        Grid[0, 4].Occupant = "O";
-        Grid[2, 4].Occupant = "O";
+        Grid[1, 2].Holder = "O";
+        Grid[3, 2].Holder = "O";
+        Grid[1, 4].Holder = "O";
+        Grid[3, 4].Holder = "O";
     }
+    /*
+        public void Display()
+        {
 
+            Console.WriteLine("__________________________________________");
+
+            for (int y = 0; y < 6; y++)
+            {
+                for (int x = 0; x < 6; x++)
+                {
+                    Console.Write($" | {Grid[x, y].Holder} | ");
+                }
+                Console.WriteLine("\n_________________________________________");
+            }
+        }
+    */
     public void Display()
- {
-     Console.WriteLine("******************************************");
+    {
+        Console.WriteLine("******************************************");
 
-     for (int y = 0; y < 6; y++)
-     {
-         for (int x = 0; x < 6; x++)
-         {
-             Console.Write($" | {Grid[x, y].Occupant} | ");
-         }
-         Console.WriteLine("\n******************************************");
-     }
- }
-
+        for (int y = 0; y < 6; y++)
+        {
+            for (int x = 0; x < 6; x++)
+            {
+                Console.Write($" | {Grid[x, y].Holder} | ");
+            }
+            Console.WriteLine("\n******************************************");
+        }
+    }
 
     public void UpdateBoardWithPlayers(Player player1, Player player2)
     {
-        int previousX1 = player1.PositionHistory[player1.currentPositionIndex].X;
-        int previousY1 = player1.PositionHistory[player1.currentPositionIndex].Y;
+        int prevX1 = player1.LocationHistory[player1.current_Position_Index].X;
+        int prevY1 = player1.LocationHistory[player1.current_Position_Index].Y;
 
-        int previousX2 = player2.PositionHistory[player2.currentPositionIndex].X;
-        int previousY2 = player2.PositionHistory[player2.currentPositionIndex].Y;
+        int prevX2 = player2.LocationHistory[player2.current_Position_Index].X;
+        int prevY2 = player2.LocationHistory[player2.current_Position_Index].Y;
 
-        if (previousX1 >= 0 && previousX1 < 6 && previousY1 >= 0 && previousY1 < 6)
+        if (prevX1 >= 0 && prevX1 < 6 && prevY1 >= 0 && prevY1 < 6)
         {
-            Grid[previousX1, previousY1].Occupant = "-";
+            Grid[prevX1, prevY1].Holder = "-";
         }
 
-        if (previousX2 >= 0 && previousX2 < 6 && previousY2 >= 0 && previousY2 < 6)
+        if (prevX2 >= 0 && prevX2 < 6 && prevY2 >= 0 && prevY2 < 6)
         {
-            Grid[previousX2, previousY2].Occupant = "-";
+            Grid[prevX2, prevY2].Holder = "-";
         }
 
-        Grid[player1.Position.X, player1.Position.Y].Occupant = "P1";
-        Grid[player2.Position.X, player2.Position.Y].Occupant = "P2";
+        Grid[player1.Position.X, player1.Position.Y].Holder = "P1";
+        Grid[player2.Position.X, player2.Position.Y].Holder = "P2";
     }
 
 
-    public bool IsValidMove(Player player, char direction)
+    public bool IsTrueMove(Player player, char direction)
     {
         int newX = player.Position.X;
         int newY = player.Position.Y;
@@ -169,15 +184,16 @@ class Board
                 break;
             default:
                 Console.WriteLine("Invalid direction. Please use U, D, L, or R.");
+                System.Threading.Thread.Sleep(2000);
                 return false;
         }
 
 
-        if (newX >= 0 && newX < 6 && newY >= 0 && newY < 6 && Grid[newX, newY].Occupant != "O")
+        if (newX >= 0 && newX < 6 && newY >= 0 && newY < 6 && Grid[newX, newY].Holder != "O")
         {
 
 
-            Grid[player.Position.X, player.Position.Y].Occupant = "-";
+            Grid[player.Position.X, player.Position.Y].Holder = "-";
 
 
 
@@ -186,17 +202,17 @@ class Board
         }
         else
         {
-            Console.WriteLine("Invalid move. Obstacle or out of bounds.");
+            Console.WriteLine("Invalid move. Obstacle or out of limits.");
             return false;
         }
     }
 
     public void CollectGem(Player player)
     {
-        if (Grid[player.Position.X, player.Position.Y].Occupant == "G")
+        if (Grid[player.Position.X, player.Position.Y].Holder == "G")
         {
             player.GemCount++; //update the game 
-            Grid[player.Position.X, player.Position.Y].Occupant = "-";
+            Grid[player.Position.X, player.Position.Y].Holder = "-";
         }
     }
 }
@@ -222,20 +238,25 @@ class Game
     {
         while (!IsGameOver())
         {
+            Console.Clear();// to clear the previous value of board
+
             Console.WriteLine($"Turn {TotalTurns + 1}: {CurrentTurn.Name}'s turn");
             Board.UpdateBoardWithPlayers(Player1, Player2);
+            
             Board.Display();
 
-            Console.Write("Choose the direction in the upper case letter (U/D/L/R): ");
+            
+            Console.Write("Select the direction in upper case letters (U/D/L/R):  ");
             char direction = char.ToUpper(Console.ReadKey().KeyChar);
             Console.WriteLine();
 
-            if (Board.IsValidMove(CurrentTurn, direction))
+            if (Board.IsTrueMove(CurrentTurn, direction))
             {
                 CurrentTurn.Move(direction);
                 Board.CollectGem(CurrentTurn);
 
                 Console.WriteLine($"{CurrentTurn.Name} moved {direction}");
+
                 Board.UpdateBoardWithPlayers(Player1, Player2);
                 Board.Display();
 
@@ -272,18 +293,16 @@ class Game
         }
         else
         {
-            Console.WriteLine("It's a tie!");
+            Console.WriteLine("The game ends in a tie between the two players!");
         }
     }
 
+   
 }
 
 class Program
 {
-    static void Main()
+    static void Main ()
     {
         Game gemHuntersGame = new Game();
-        gemHuntersGame.Start();
-    }
-}
-
+        gemHunters
