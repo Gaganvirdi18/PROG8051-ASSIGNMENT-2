@@ -311,4 +311,6 @@ class Program
     static void Main ()
     {
         Game gemHuntersGame = new Game();
-        gemHunters
+        gemHuntersGame.Start();
+    }
+}
