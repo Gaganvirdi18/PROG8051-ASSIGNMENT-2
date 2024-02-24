@@ -260,8 +260,7 @@ class Game
     private void AnnounceWinner()
     {
         Console.WriteLine("Game over!");
-        Console.WriteLine($"{Player1.Name} collected {Player1.GemCount} gems. Movements: {GetPlayerMovements(Player1)}");
-        Console.WriteLine($"{Player2.Name} collected {Player2.GemCount} gems. Movements: {GetPlayerMovements(Player2)}");
+        
 
         if (Player1.GemCount > Player2.GemCount)
         {
@@ -277,15 +276,6 @@ class Game
         }
     }
 
-    private string GetPlayerMovements(Player player)
-    {
-        string movements = "";
-        for (int i = 0; i <= player.currentPositionIndex; i++)
-        {
-            movements += $"({player.PositionHistory[i].X},{player.PositionHistory[i].Y}) ";
-        }
-        return movements;
-    }
 }
 
 class Program
