@@ -316,6 +316,11 @@ class Program
 {
     static void Main ()
     {
+        Console.WriteLine("Welcome to Gem Hunters Game!");
+        System.Threading.Thread.Sleep(2000);
+        Console.WriteLine("Let the game begin!\n");
+        System.Threading.Thread.Sleep(1000);
+
         Game gemHuntersGame = new Game();
         gemHuntersGame.Start();
     }
