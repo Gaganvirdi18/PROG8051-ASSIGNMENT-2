@@ -260,7 +260,13 @@ class Game
                 CurrentTurn.Move(direction);
                 Board.CollectGem(CurrentTurn);
 
-                Console.WriteLine($"{CurrentTurn.Name} moved {direction}");
+                if ( direction=='U')
+                    Console.WriteLine($"{CurrentTurn.Name} moved Upward direction");
+                else  if (direction == 'L')
+                    Console.WriteLine($"{CurrentTurn.Name} moved Left direction");
+                else if(direction == 'R')
+                    Console.WriteLine($"{CurrentTurn.Name} moved Right direction");
+                else Console.WriteLine($"{CurrentTurn.Name} moved Downward direction");
                 System.Threading.Thread.Sleep(1000); // TO SHOW PLAYER IS MOVING IN WHICH DIRECTION
 
                 Board.UpdateBoardWithPlayers(Player1, Player2);
