@@ -160,6 +160,10 @@ class Board
 
         Grid[player1.Position.X, player1.Position.Y].Holder = "P1";
         Grid[player2.Position.X, player2.Position.Y].Holder = "P2";
+         if ((player1.Position.X == player2.Position.X) &&(player1.Position.Y == player2.Position.Y)) // if players are in same locations 
+ {
+     Grid[player2.Position.X, player2.Position.Y].Holder = "P1, P2";
+ }
     }
 
 
@@ -203,6 +207,7 @@ class Board
         else
         {
             Console.WriteLine("Invalid move. Obstacle or out of limits.");
+            System.Threading.Thread.Sleep(2000);
             return false;
         }
     }
@@ -256,6 +261,7 @@ class Game
                 Board.CollectGem(CurrentTurn);
 
                 Console.WriteLine($"{CurrentTurn.Name} moved {direction}");
+                System.Threading.Thread.Sleep(1000); // TO SHOW PLAYER IS MOVING IN WHICH DIRECTION
 
                 Board.UpdateBoardWithPlayers(Player1, Player2);
                 Board.Display();
