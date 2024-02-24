@@ -293,6 +293,9 @@ class Game
     private void AnnounceWinner()
     {
         Console.WriteLine("Game over!");
+
+         Console.WriteLine($"{Player1.Name} collected {Player1.GemCount} gems.\n");
+         Console.WriteLine($"{Player2.Name} collected {Player2.GemCount} gems. \n");
         
 
         if (Player1.GemCount > Player2.GemCount)
