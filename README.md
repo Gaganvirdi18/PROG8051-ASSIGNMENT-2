@@ -1,7 +1,7 @@
-GEM HUNTERS CONSOLE GAME OF 6x6 BOARD.
-Video screen cast of the console:
+Gem Hunters Game (Console Edition) YouTube video link of the screencast: https://youtu.be/gC6Y1Sq7qrQ
 
 Gem Hunters
+
 Gem Hunters is a puzzle-based two-player game implemented in C#. Players navigate a 6x6 board to collect gems while avoiding obstacles. The game tracks each player's movements and gem collections and determines the winner based on the gems collected.
 
 Features:
