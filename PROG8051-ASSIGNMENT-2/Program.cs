@@ -67,7 +67,7 @@ class Player
 
 class Cell
 {
-    public string Holder { get; set; }
+    public string Occupant { get; set; }
 }
 
 class Board
@@ -87,45 +87,32 @@ class Board
         {
             for (int y = 0; y < 6; y++)
             {
-                Grid[x, y] = new Cell { Holder = "-" };
+                Grid[x, y] = new Cell { Occupant = "-" };
             }
         }
 
-        Grid[0, 0].Holder = "P1";
-        Grid[5, 5].Holder = "P2";
+      
 
         //Initialise the gem values 
-        Grid[4, 3].Holder = "G";
-        Grid[1, 1].Holder = "G";
-        Grid[3, 3].Holder = "G";
-        Grid[2, 5].Holder = "G";
-        Grid[5, 3].Holder = "G";
-        Grid[2, 2].Holder = "G";
-        Grid[3, 3].Holder = "G";
-        Grid[5, 4].Holder = "G";
+        Grid[4, 3].Occupant = "G";
+        Grid[1, 1].Occupant = "G";
+        Grid[3, 3].Occupant = "G";
+        Grid[2, 5].Occupant = "G";
+        Grid[5, 3].Occupant = "G";
+        Grid[2, 2].Occupant = "G";
+        Grid[3, 3].Occupant = "G";
+        Grid[5, 4].Occupant = "G";
+
+          Grid[0, 0].Occupant = "P1";
+        Grid[5, 5].Occupant = "P2";
 
         // intialise the obstackles
-        Grid[1, 2].Holder = "O";
-        Grid[3, 2].Holder = "O";
-        Grid[1, 4].Holder = "O";
-        Grid[3, 4].Holder = "O";
+        Grid[1, 2].Occupant = "O";
+        Grid[3, 2].Occupant = "O";
+        Grid[1, 4].Occupant = "O";
+        Grid[3, 4].Occupant = "O";
     }
-    /*
-        public void Display()
-        {
-
-            Console.WriteLine("__________________________________________");
-
-            for (int y = 0; y < 6; y++)
-            {
-                for (int x = 0; x < 6; x++)
-                {
-                    Console.Write($" | {Grid[x, y].Holder} | ");
-                }
-                Console.WriteLine("\n_________________________________________");
-            }
-        }
-    */
+    
     public void Display()
     {
         Console.WriteLine("******************************************");
@@ -134,7 +121,7 @@ class Board
         {
             for (int x = 0; x < 6; x++)
             {
-                Console.Write($" | {Grid[x, y].Holder} | ");
+                Console.Write($" | {Grid[x, y].Occupant} | ");
             }
             Console.WriteLine("\n******************************************");
         }
@@ -150,19 +137,19 @@ class Board
 
         if (prevX1 >= 0 && prevX1 < 6 && prevY1 >= 0 && prevY1 < 6)
         {
-            Grid[prevX1, prevY1].Holder = "-";
+            Grid[prevX1, prevY1].Occupant = "-";
         }
 
         if (prevX2 >= 0 && prevX2 < 6 && prevY2 >= 0 && prevY2 < 6)
         {
-            Grid[prevX2, prevY2].Holder = "-";
+            Grid[prevX2, prevY2].Occupant = "-";
         }
 
-        Grid[player1.Position.X, player1.Position.Y].Holder = "P1";
-        Grid[player2.Position.X, player2.Position.Y].Holder = "P2";
+        Grid[player1.Position.X, player1.Position.Y].Occupant = "P1";
+        Grid[player2.Position.X, player2.Position.Y].Occupant = "P2";
          if ((player1.Position.X == player2.Position.X) &&(player1.Position.Y == player2.Position.Y)) // if players are in same locations 
  {
-     Grid[player2.Position.X, player2.Position.Y].Holder = "P1, P2";
+     Grid[player2.Position.X, player2.Position.Y].Occupant = "P1, P2";
  }
     }
 
@@ -193,11 +180,11 @@ class Board
         }
 
 
-        if (newX >= 0 && newX < 6 && newY >= 0 && newY < 6 && Grid[newX, newY].Holder != "O")
+        if (newX >= 0 && newX < 6 && newY >= 0 && newY < 6 && Grid[newX, newY].Occupant != "O")
         {
 
 
-            Grid[player.Position.X, player.Position.Y].Holder = "-";
+            Grid[player.Position.X, player.Position.Y].Occupant = "-";
 
 
 
@@ -214,10 +201,10 @@ class Board
 
     public void CollectGem(Player player)
     {
-        if (Grid[player.Position.X, player.Position.Y].Holder == "G")
+        if (Grid[player.Position.X, player.Position.Y].Occupant == "G")
         {
             player.GemCount++; //update the game 
-            Grid[player.Position.X, player.Position.Y].Holder = "-";
+            Grid[player.Position.X, player.Position.Y].Occupant = "-";
         }
     }
 }
